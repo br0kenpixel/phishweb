@@ -12,6 +12,7 @@ pub struct Capture(AsyncMutex<async_fs::File>);
 impl Capture {
     pub async fn new(path: PathBuf) -> AsyncIoResult<Capture> {
         let handle = async_fs::OpenOptions::new()
+            .create(true)
             .append(true)
             .truncate(false)
             .open(path)
