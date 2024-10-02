@@ -21,4 +21,16 @@ for target in ${TARGETS[@]}; do
             fi
         fi
     fi
+
+    if [ -f target/$target/release/$BIN_NAME.exe ]; then
+        mv target/$target/release/$BIN_NAME.exe releases/$BIN_NAME-$target.exe
+
+        if [ -x "$(command -v upx)" ]; then
+            cp releases/$BIN_NAME-$target.exe releases/$BIN_NAME-$target-compressed.exe
+
+            if ! upx $UPX_FLAGS releases/$BIN_NAME-$target-compressed.exe; then
+                rm releases/$BIN_NAME-$target-compressed.exe
+            fi
+        fi
+    fi
 done
