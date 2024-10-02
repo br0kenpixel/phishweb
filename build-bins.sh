@@ -1,6 +1,7 @@
 #!/bin/sh
 
-TARGETS=("x86_64-unknown-linux-gnu" "x86_64-unknown-linux-musl" "x86_64-pc-windows-gnu")
+TARGETS=("x86_64-unknown-linux-gnu" "x86_64-unknown-linux-musl" "x86_64-pc-windows-gnu" "aarch64-unknown-linux-gnu" "aarch64-unknown-linux-musl")
+CROSS_TARGETS=("aarch64-unknown-linux-gnu" "aarch64-unknown-linux-musl")
 BIN_NAME="phishweb"
 UPX_FLAGS="--best --lzma"
 
@@ -8,7 +9,11 @@ rm -rf releases/
 mkdir releases/
 
 for target in ${TARGETS[@]}; do
-    cargo build --target=$target --release
+    if [[ ${CROSS_TARGETS[@]} =~ $target ]]; then
+        cross build --target=$target --release
+    else
+        cargo build --target=$target --release
+    fi
 
     if [ -f target/$target/release/$BIN_NAME ]; then
         mv target/$target/release/$BIN_NAME releases/$BIN_NAME-$target
