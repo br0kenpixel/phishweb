@@ -16,7 +16,7 @@ Options:
 ```
 
 ## Running
-Download the precompiled binary from here, or compile it yourself using `cargo`. For instructions on how to install the Rust toolchain see [this](rustlang.org).
+Download the precompiled binary from [here](https://github.com/br0kenpixel/phishweb/releases), or compile it yourself using `cargo`. For instructions on how to install the Rust toolchain see [this](rustlang.org).
 
 You will also need a basic website that will call `/api/login` on a form submit. The form must be sent as `application/x-www-form-urlencoded` and **must** contain a `username` and `password` field. Optionally, you can also add an `email` field. A pre-built website is included in this repo ([`www`](www/)). You must place this folder in the same directory as the `phishweb` binary, otherwise you must specify the path to this directory using the `--webroot` switch.
 
